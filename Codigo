@@ -1,0 +1,142 @@
+"""
+primos.py - Funciones relacionadas con números primos.
+
+Nombre del alumno: Martí Vila Frigola
+
+Tests:
+
+>>> [numero for numero in range(2, 50) if esPrimo(numero)]
+[2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47]
+
+>>> primos(50)
+(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47)
+
+>>> descompon(36 * 175 * 143)
+(2, 2, 3, 3, 5, 5, 7, 11, 13)
+
+>>> mcm(90, 14)
+630
+
+>>> mcd(924, 780)
+12
+
+>>> mcm(42, 60, 70, 63)
+1260
+
+>>> mcd(840, 630, 1050, 1470)
+210
+"""
+
+
+def esPrimo(numero):
+    """
+    Devuelve True si el número es primo, False si no lo es.
+    """
+    if type(numero) != int or numero <= 1:
+        raise TypeError("Debe ser un número natural mayor que 1")
+
+    for i in range(2, numero):
+        if numero % i == 0:
+            return False
+
+    return True
+
+
+def primos(numero):
+    """
+    Devuelve una tupla con los números primos menores que numero.
+    """
+    if type(numero) != int or numero <= 1:
+        raise TypeError
+
+    lista = []
+
+    for i in range(2, numero):
+        if esPrimo(i):
+            lista.append(i)
+
+    return tuple(lista)
+
+
+def descompon(numero):
+    """
+    Devuelve la descomposición en factores primos.
+    """
+    if type(numero) != int or numero <= 1:
+        raise TypeError
+
+    factores = []
+    divisor = 2
+
+    while numero > 1:
+        if numero % divisor == 0:
+            factores.append(divisor)
+            numero = numero // divisor
+        else:
+            divisor += 1
+
+    return tuple(factores)
+
+
+def mcm(*numeros):
+    """
+    Devuelve el mínimo común múltiplo.
+    """
+    # validar
+    for n in numeros:
+        if type(n) != int or n <= 1:
+            raise TypeError
+
+    # sacar factores de todos
+    factores_totales = []
+
+    for n in numeros:
+        factores = list(descompon(n))
+
+        for f in factores:
+            if factores.count(f) > factores_totales.count(f):
+                # añadir los que faltan
+                while factores_totales.count(f) < factores.count(f):
+                    factores_totales.append(f)
+
+    resultado = 1
+    for f in factores_totales:
+        resultado *= f
+
+    return resultado
+
+
+def mcd(*numeros):
+    """
+    Devuelve el máximo común divisor.
+    """
+    # validar
+    for n in numeros:
+        if type(n) != int or n <= 1:
+            raise TypeError
+
+    listas = []
+
+    for n in numeros:
+        listas.append(list(descompon(n)))
+
+    comunes = listas[0]
+
+    for lista in listas[1:]:
+        nueva = []
+        for x in comunes:
+            if x in lista:
+                nueva.append(x)
+                lista.remove(x)
+        comunes = nueva
+
+    resultado = 1
+    for x in comunes:
+        resultado *= x
+
+    return resultado
+
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod(verbose=True)
