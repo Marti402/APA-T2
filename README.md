@@ -92,7 +92,7 @@ comprobarse las siguientes condiciones:
 
 Inserte a continuación una captura de pantalla que muestre el resultado de ejecutar el fichero `primos.py` con la opción
 *verbosa*, de manera que se muestre el resultado de la ejecución de los tests unitarios.
-<img width="541" height="759" alt="image" src="https://github.com/user-attachments/assets/737155f6-8c03-4156-b88f-b707237565d0" />
+<img width="692" height="804" alt="Screenshot 2026-04-01 183351" src="https://github.com/user-attachments/assets/07b71678-ad96-4844-8902-52921ccd83d6" />
 
 
 #### Código desarrollado
